@@ -5,7 +5,7 @@ public:
         int left = 0;
         int maxlen = 0;
         for (int right = 0; right < s.length(); right++) {
-            if (std::find(myList.begin(), myList.end(), s[right]) == myList.end()) {
+            if (find(myList.begin(), myList.end(), s[right]) == myList.end()) {
                 myList.push_back(s[right]);
                 maxlen = max(maxlen, (int)myList.size());
             } else {
