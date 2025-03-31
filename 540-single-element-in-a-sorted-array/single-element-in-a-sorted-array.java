@@ -2,9 +2,7 @@ class Solution {
     public int singleNonDuplicate(int[] nums) {
         int n = nums.length;
         int l = 0;
-        int r= n-1;
-    
-        while(l<=r){
+        while(l<=(n-1)){
             if(l==n-1){
                 return nums[l];
             }
