@@ -2,20 +2,38 @@ import java.util.Stack;
 
 class Solution {
     public int longestValidParentheses(String s) {
+        int left =0;
+        int right=0;
         int max = 0;
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1); // Initialize stack with -1 to handle edge cases
 
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                stack.push(i);
-            } else {
-                stack.pop();
-                if (stack.isEmpty()) {
-                    stack.push(i); // Update the starting point if stack is empty
-                } else {
-                    max = Math.max(max, i - stack.peek());
-                }
+            if(s.charAt(i)=='('){
+                left++;
+            }else{
+                right++;
+            }
+            if(left==right){
+                max=Math.max(max,left*2);
+            }
+            if(right>left){
+                left=0;
+                right=0;
+            }
+        }
+        left=0;
+        right=0;
+        for (int i = s.length()-1; i >=0; i--) {
+            if(s.charAt(i)=='('){
+                left++;
+            }else{
+                right++;
+            }
+            if(left==right){
+                max=Math.max(max,left*2);
+            }
+            if(right<left){
+                left=0;
+                right=0;
             }
         }
         return max;
