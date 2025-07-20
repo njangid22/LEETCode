@@ -1,25 +1,18 @@
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
 class Solution {
 public:
-    vector<string> removeSubfolders(vector<string>& folder) {
-        vector<string> result;
-
-        // Step 1: Sort the folder list lexicographically
+    vector<std::string> removeSubfolders(vector<string>& folder) {
         sort(folder.begin(), folder.end());
+        vector<string> ans = {folder[0]};
 
-        // Step 2: Add first folder to result
-        result.push_back(folder[0]);
-
-        // Step 3: Traverse from second folder
         for (int i = 1; i < folder.size(); ++i) {
-            string last = result.back();  // get last added folder
-            string prefix = last + "/";   // to match exact subfolder pattern
-
-            // Check if current folder starts with last + "/"
-            if (folder[i].substr(0, prefix.size()) != prefix) {
-                result.push_back(folder[i]);  // not a subfolder
+            if (folder[i].substr(0, ans.back().size() + 1) != ans.back() + "/") {
+                ans.push_back(folder[i]);
             }
         }
-
-        return result;
+        return ans;
     }
 };
