@@ -2,32 +2,22 @@ class Solution {
 public:
     vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
         sort(products.begin(), products.end());
+        int left=0, right=products.size()-1;
         vector<vector<string>> ans;
-        int n = searchWord.size();
-        int m = products.size();
-        for (int i = 0; i < n; ++i) {
-            string prefix = searchWord.substr(0, i + 1);
-            vector<string> suggestion;
-            int left = 0, right = m - 1;
-            while (left <= right) {
-                int mid = left + (right - left) / 2;
-                if (products[mid].compare(0, prefix.size(), prefix) < 0) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
+        for(int i=0;i<searchWord.size();i++){
+            char c = searchWord[i];
+            while(left <= right && (products[left][i]<c || products[left].size()<=i)){
+                left++;
             }
-            for (int j = left; j < min(left + 3, m); ++j) {
-                if (products[j].compare(0, prefix.size(), prefix) == 0) {
-                    suggestion.push_back(products[j]);
-                } else {
-                    break;
-                }
+            while(left <= right && (products[right][i]>c || products[right].size()<=i )){
+                right--;
             }
-
-            ans.push_back(suggestion);
+            vector<string> res;
+            for(int j=0;j<3&&left+j<=right;j++){
+                res.push_back(products[left+j]);
+            }
+            ans.push_back(res);
         }
-
         return ans;
     }
 };
