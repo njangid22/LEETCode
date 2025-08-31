@@ -5,7 +5,10 @@ class Solution {
             char[] arr = str.toCharArray();
             Arrays.sort(arr);
             String sortedStr = new String(arr);
-            map.computeIfAbsent(sortedStr, k -> new ArrayList<>()).add(str);
+            if (!map.containsKey(sortedStr)) {
+                map.put(sortedStr, new ArrayList<>());
+            }
+            map.get(sortedStr).add(str);
         }
         return new ArrayList<>(map.values());
     }
